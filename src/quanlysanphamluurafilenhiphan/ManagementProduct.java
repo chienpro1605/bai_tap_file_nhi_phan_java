@@ -41,14 +41,14 @@ public class ManagementProduct {
             System.out.println("không tìm thấy");
         }
     }
-    public void writeToFile(String path){
+    public void writeToFile(String path, List<Product> list){
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
         try {
-            fos = new  FileOutputStream(path);
+            fos = new  FileOutputStream(path,true);
             oos = new ObjectOutputStream(fos);
 
-            oos.writeObject(list);
+            oos.writeObject(this.list);
 
         }catch (Exception e){
         }finally {
@@ -73,6 +73,7 @@ public class ManagementProduct {
             ois = new ObjectInputStream(fis);
 
             list = (List<Product>) ois.readObject();
+            displayProduct();
 
         }catch (Exception e){
         }finally {

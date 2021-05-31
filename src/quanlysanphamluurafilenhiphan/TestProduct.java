@@ -2,12 +2,13 @@ package quanlysanphamluurafilenhiphan;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class TestProduct {
     public static void main(String[] args) {
-        List<Product> list = new ArrayList<>();
+
        Scanner scanner = new Scanner(System.in);
        ManagementProduct ql = new ManagementProduct();
         int choose;
@@ -25,24 +26,27 @@ public class TestProduct {
                    ql.addProduct();
                    break;
                case 2:
-                   System.out.println("nhập id cần tìm kiếm");
-                   int id = scanner.nextInt();
-                   ql.seachProduct(id);
-                   break;
+                   int id;
+                       System.out.println("nhập id cần tìm kiếm");
+                       id = scanner.nextInt();
+                       ql.seachProduct(id);
+                       break;
                case 3:
                    ql.displayProduct();
                    break;
                case 4:
-                   writeToFile("product.txt",list);
+                   ql.writeToFile("product.csv",ql.list);
                    break;
                case 5:
-                   readDataFromFile("product.txt");
+                   ql.readDataFromFile("product.csv");
                    break;
                case 6:
                    System.out.println("good bye");
                    System.exit(0);
+                   break;
+               default:
+                   System.out.println("nhập lại");
            }
-
 
        }while (choose!=6);
 
@@ -55,28 +59,30 @@ public class TestProduct {
         System.out.println("5. hiển thị sản phẩm từ file lưu");
         System.out.println("6. thoát");
     }
-    static void writeToFile(String path, List<Product> list) {
-        try {
-            FileOutputStream fos = new FileOutputStream(path);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(list);
-            oos.close();
-            fos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    public static List<Product> readDataFromFile(String path){
-        List<Product> list = new ArrayList<>();
-        try{
-            FileInputStream fis = new FileInputStream(path);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            list = (List<Product>) ois.readObject();
-            fis.close();
-            ois.close();
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }
-        return list;
-    }
+//    static void writeToFile(String path, List<Product> list) {
+//        try {
+//            FileOutputStream fos = new FileOutputStream(path);
+//            ObjectOutputStream oos = new ObjectOutputStream(fos);
+//            oos.writeObject(list);
+//            oos.close();
+//            fos.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//    public static List<Product> readDataFromFile(String path){
+//        List<Product> list = new ArrayList<>();
+//        try{
+//            FileInputStream fis = new FileInputStream(path);
+//            ObjectInputStream ois = new ObjectInputStream(fis);
+//            list = (List<Product>) ois.readObject();
+//            System.out.println("done");
+//            ois.close();
+//            fis.close();
+//
+//        }catch(Exception ex){
+//            ex.printStackTrace();
+//        }
+//        return list;
+//    }
 }
